@@ -1,5 +1,5 @@
 require 'gosu'
-
+SIZE = 35
 def media_path(file)
   File.join(File.dirname(__FILE__), 'Images', file)
 end
@@ -36,14 +36,14 @@ class Wall
     end
     
     def draw
-        @image.draw(@x,@y,0)
+        @image.draw(@y,@x,0)
     end
 end
 
 
 class Window < Gosu::Window
     def initialize
-        super 750, 933
+        super 1000, 933
         self.caption = "Pacman Game"
         #read wall text
         $wallsdoc = []
@@ -57,8 +57,10 @@ class Window < Gosu::Window
         t=0
         for i in 0..$wallsdoc.length-1
             row =  $wallsdoc[i]
+            puts row
             for j in 0..row.length-1
-                $walls[t] =Wall.new(100*i,100*j, 100, 100, $wallsdoc[i][j].to_i) 
+                puts j
+                $walls[t] =Wall.new(SIZE*i,SIZE*j, SIZE, SIZE, $wallsdoc[i][j].to_i) 
                 t=t+1
             end
         end

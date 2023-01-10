@@ -14,10 +14,13 @@ class Window < Gosu::Window
   FONT = media_path('PressStart2Play.ttf')
   DEATHSONG= media_path('pacman_death.wav')
   OPENSONG= media_path('pacman_beginning.wav')
+  SIZE = 35          #kich thuoc tile anh
+  SIZE_WIDTH= 28     #chieu ngang map
+  SIZE_HEIGHT = 31   #chieu doc map
 
 
   def initialize
-    super 750, 933
+    super SIZE_HEIGHT*SIZE , SIZE_WIDTH*SIZE
     self.caption = "Pacman Game"
     @background_image = Gosu::Image.new(BACKGROUND, :tileable => true)
     $lives = 3
@@ -27,13 +30,23 @@ class Window < Gosu::Window
     @openMusic = Gosu::Sample.new(OPENSONG)
     @openMusic.play(1,1,false)
     #####################   read walls  ##############################
-    $walls = Array.new(33)
+    $wallsdoc = []
     lines = IO.readlines("inputWall.txt")
-    c = 0
     lines.each do |i|
-      splited = i.split(" ")
-      $walls[c] = Wall.new(splited[0].to_i,splited[1].to_i,splited[2].to_i,splited[3].to_i,splited[4])
-      c = c + 1
+        splited = i.split(" ")
+        $wallsdoc.push(splited)
+    end
+
+    $walls = []
+    t=0
+    for i in 0..$wallsdoc.length-1
+        row =  $wallsdoc[i]
+        puts row
+        for j in 0..row.length-1
+            puts j
+            $walls[t] =Wall.new(SIZE*i,SIZE*j, SIZE, SIZE, $wallsdoc[i][j].to_i) 
+            t=t+1
+        end
     end
     #####################   create dots   ##############################
     $dots = Array.new(300)
