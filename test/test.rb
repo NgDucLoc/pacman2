@@ -7,7 +7,7 @@ end
 
 puts ['0' ,1.to_s ,'2'].join()
 
-$walls = []
+$walls_file = []
 for i in 0..20
     if (i<10)
         $pathwall= ["0", i.to_s ,".png"].join()
@@ -15,10 +15,10 @@ for i in 0..20
         $pathwall=[i.to_s , ".png"].join()
     end
     puts $pathwall
-    $walls[i] = media_path($pathwall.to_s)
+    $walls_file[i] = media_path($pathwall.to_s)
 end
 
-
+puts $walls_file[2]
 
 class Wall
     def initialize(x, y , h , w , axis)
@@ -26,10 +26,7 @@ class Wall
         @y=y
         @height = h
         @width = w
-        @img = $walls[axis]
-        puts 1
-        puts $walls[axis]
-        puts 2
+        @img = $walls_file[axis]
         if axis <21
             @through = false
         else 
@@ -42,9 +39,6 @@ class Wall
         @image.draw(@x,@y,0)
     end
 end
-
-
-
 
 
 class Window < Gosu::Window
@@ -62,9 +56,9 @@ class Window < Gosu::Window
         $walls = []
         t=0
         for i in 0..$wallsdoc.length-1
-            @row =  $wallsdoc[i]
-            for j in 0..@row.length-1
-                $walls[t] =Wall.new(100*i.to_i,100*j.to_i, 100.to_i, 100.to_i, $wallsdoc[i][j].to_i) 
+            row =  $wallsdoc[i]
+            for j in 0..row.length-1
+                $walls[t] =Wall.new(100*i,100*j, 100, 100, $wallsdoc[i][j].to_i) 
                 t=t+1
             end
         end
@@ -73,11 +67,9 @@ class Window < Gosu::Window
     def draw
         c = 0
         while c < $walls.size
-            puts 'draw'
             $walls[c].draw
             c += 1
         end
     end
 end
 Window.new.show
-puts $walls[1]
