@@ -3,6 +3,8 @@ require 'gosu'
 def media_path(file)
   File.join(File.dirname(__FILE__), 'Images', file)
 end
+
+#khoi tao tuong
 class Wall
   HWALL = media_path('wallH.png')
   VWALL = media_path('wallV.png')

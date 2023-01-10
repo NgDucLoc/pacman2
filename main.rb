@@ -133,12 +133,13 @@ class Window < Gosu::Window
 
   def draw
     @background_image.draw(0, 0, 0)
+    #draw wall
     c = 0
     while c < $walls.size
       $walls[c].draw
       c += 1
     end
-
+    #draw coin
     c = 0
     while c < $dotsNum
       $dots[c].isEated($player.x+25 , $player.y+25)
@@ -146,6 +147,8 @@ class Window < Gosu::Window
       $dots[c].draw
       c += 1
     end
+
+    #draw ghosts
     if $score != $dotsNum
       c = 0
       while c < $ghosts.size
@@ -153,19 +156,21 @@ class Window < Gosu::Window
         c += 1
       end
     end
+
+    #draw Score and live
     @font.draw("Score: #{$score}", 10, 10, 1, 1.0, 1.0, Gosu::Color::YELLOW)
     if $lives > -1
-    @font.draw("Lives: #{$lives}", 500, 10, 1, 1.0, 1.0, Gosu::Color::YELLOW)
+      @font.draw("Lives: #{$lives}", 500, 10, 1, 1.0, 1.0, Gosu::Color::YELLOW)
     else
       @font.draw("Lives: 0", 500, 10, 1, 1.0, 1.0, Gosu::Color::YELLOW)
     end
 
-      if $lives > -1
+    if $lives > -1
       $player.draw
-      else
-        @font.draw("Game Over", 150, 390, 1, 1.8, 1.8, Gosu::Color::RED)
-
+    else
+      @font.draw("Game Over", 150, 390, 1, 1.8, 1.8, Gosu::Color::RED)
     end
+    
     if $score == $dotsNum
       @font.draw("You Won!", 150, 390, 1, 1.8, 1.8, Gosu::Color::YELLOW)
     end
