@@ -12,32 +12,33 @@ for i in 0..20
     else 
         $pathwall=[i.to_s , ".png"].join()
     end
-    puts $pathwall
+
     $walls_file[i] = media_path($pathwall.to_s)
 end
 
 #khoi tao tuong
 class Wall
   def initialize(x, y , h , w , axis)
-      @x=x
-      @y=y
+      @x=y
+      @y=x
       @height = h
       @width = w
       @img = $walls_file[axis]
-      if axis <21
-          @through = false
-      else 
+      if axis == 17
           @through = true
+      else 
+          @through = false
       end
+      puts @through
       @image = Gosu::Image.new(@img , options = {:rect => [0, 0, @height, @width]} )
   end
   
   def draw
-      @image.draw(@y,@x,0)
+      @image.draw(@x,@y,0)
   end
 
   def hitUp(pacmanX , pacmanY)
-    if  ((pacmanY + 60) == @y) &&
+    if  ((pacmanY + 35) == @y) &&
         ( (pacmanX).between?( (@x-5) , (@x+@height+5) )   || 
           (pacmanX+50).between?( (@x-5), (@x+@height+5) ) ||
           (pacmanX+25).between?( (@x-5) , (@x+@height+5) ) ) &&
@@ -49,7 +50,7 @@ class Wall
   end
 
   def hitDown(pacmanX , pacmanY)
-    if  ((pacmanY - 10) == @y+@width) &&
+    if  ((pacmanY + 15) == @y+@width) &&
         ( (pacmanX).between?( (@x-5) , (@x+@height+5) )   ||
           (pacmanX+50).between?( (@x-5), (@x+@height+5) ) ||
           (pacmanX+25).between?( (@x-5) , (@x+@height+5) ) ) &&
@@ -61,7 +62,7 @@ class Wall
   end
 
   def hitLeft(pacmanX , pacmanY)
-    if  ((pacmanX + 60) == @x) &&
+    if  ((pacmanX + 35 ) == @x) &&
         ( (pacmanY).between?( (@y-5) , (@y+@width+5) )   || 
           (pacmanY+50).between?( (@y-5), (@y+@width+5) ) ||
           (pacmanY+25).between?( (@y-5) , (@y+@width+5) ) ) &&
@@ -73,7 +74,7 @@ class Wall
   end
 
   def hitRight(pacmanX , pacmanY)
-    if  ((pacmanX - 10) == @x+@height) &&
+    if  ((pacmanX + 50) == @x+@height) &&
         ( (pacmanY).between?( (@y-5) , (@y+@width+5) )   || 
           (pacmanY+50).between?( (@y-5), (@y+@width+5) ) ||
           (pacmanY+25).between?( (@y-5) , (@y+@width+5) ) ) &&

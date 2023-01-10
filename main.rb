@@ -41,9 +41,7 @@ class Window < Gosu::Window
     t=0
     for i in 0..$wallsdoc.length-1
         row =  $wallsdoc[i]
-        puts row
         for j in 0..row.length-1
-            puts j
             $walls[t] =Wall.new(SIZE*i,SIZE*j, SIZE, SIZE, $wallsdoc[i][j].to_i) 
             t=t+1
         end

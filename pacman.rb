@@ -27,6 +27,7 @@ class Pacman
     @image.draw(@x,@y,1)
   end
 
+  #chuyen huong di chuyen
   def change_Direction(direction)
     if (direction == "right")
       if canMoveRight
@@ -58,6 +59,7 @@ class Pacman
     end
   end
 
+  #update co the di chuyen tiep hay khong
   def update
     if @stored_direction.eql? "right"
       if canMoveRight
@@ -106,11 +108,11 @@ class Pacman
     end
 
 
-    if @x>750
+    if @x>1000
       @x = 0
     end
     if @x < 0
-      @x=750
+      @x=1000
     end
 
     if @updateCounter >= 60
@@ -133,22 +135,23 @@ class Pacman
   end
 
   def canMoveDown
-      c = 0
-      for i in 0..32
-        if $walls[i].hitUp(@x,@y)
-          c += 1
-        end
+    c = 0
+    for i in 0..$walls.length-1
+      if $walls[i].hitUp(@x,@y)
+        puts c
+        c += 1
       end
-      if c == 0
-        return true
-      else
-        return false
-      end
+    end
+    if c == 0
+      return true
+    else
+      return false
+    end
   end
 
   def canMoveUp
     c = 0
-    for i in 0..32
+    for i in 0..$walls.length-1
       if $walls[i].hitDown(@x,@y)
         c += 1
       end
@@ -162,7 +165,7 @@ class Pacman
 
   def canMoveRight
     c = 0
-    for i in 0..32
+    for i in 0..$walls.length-1
       if $walls[i].hitLeft(@x,@y)
         c += 1
       end
@@ -176,7 +179,7 @@ class Pacman
 
   def canMoveLeft
     c = 0
-    for i in 0..32
+    for i in 0..$walls.length-1
       if $walls[i].hitRight(@x,@y)
         c += 1
       end
