@@ -92,53 +92,54 @@ class Window < Gosu::Window
       $won = true
     end
     if $won == false && (Gosu::milliseconds() >4000 && Gosu::milliseconds()-@timer >2000)
-    if button_down? Gosu::Button::KbLeft
-      $player.change_Direction("left")
-    end
-    if button_down? Gosu::Button::KbRight
-        $player.change_Direction("right")
-    end
+      if button_down? Gosu::Button::KbLeft
+        $player.change_Direction("left")
+      end
+      if button_down? Gosu::Button::KbRight
+          $player.change_Direction("right")
+      end
 
-    if button_down? Gosu::Button::KbDown
-        $player.change_Direction("down")
-    end
+      if button_down? Gosu::Button::KbDown
+          $player.change_Direction("down")
+      end
 
-    if button_down? Gosu::Button::KbUp
-        $player.change_Direction("up")
-    end
-      $player.update
+      if button_down? Gosu::Button::KbUp
+          $player.change_Direction("up")
+      end
+        $player.update
+        c = 0
+        while c < $ghosts.size
+          $ghosts[c].update
+          c += 1
+        end
+
       c = 0
       while c < $ghosts.size
-        $ghosts[c].update
+        if $ghosts[c].hitPacman($player.x,$player.y)
+          $player.changeXY(350,390)
+          $lives -= 1
+          @timer = Gosu::milliseconds()
+          @deathMusic = Gosu::Sample.new(DEATHSONG)
+          @deathMusic.play(1,1,false)
+          if $lives == -1
+            @timer = 2000
+          end
+        end
         c += 1
       end
-
-    c = 0
-    while c < $ghosts.size
-      if $ghosts[c].hitPacman($player.x,$player.y)
-        $player.changeXY(350,390)
-        $lives -= 1
-        @timer = Gosu::milliseconds()
-        @deathMusic = Gosu::Sample.new(DEATHSONG)
-        @deathMusic.play(1,1,false)
-        if $lives == -1
-          @timer = 2000
-        end
-      end
-      c += 1
-    end
     end
 
   end
 
   def draw
     @background_image.draw(0, 0, 0)
+    #draw wall
     c = 0
     while c < $walls.size
       $walls[c].draw
       c += 1
     end
-
+    #draw coin
     c = 0
     while c < $dotsNum
       $dots[c].isEated($player.x+25 , $player.y+25)
@@ -146,6 +147,8 @@ class Window < Gosu::Window
       $dots[c].draw
       c += 1
     end
+
+    #draw ghosts
     if $score != $dotsNum
       c = 0
       while c < $ghosts.size
@@ -153,19 +156,21 @@ class Window < Gosu::Window
         c += 1
       end
     end
+
+    #draw Score and live
     @font.draw("Score: #{$score}", 10, 10, 1, 1.0, 1.0, Gosu::Color::YELLOW)
     if $lives > -1
-    @font.draw("Lives: #{$lives}", 500, 10, 1, 1.0, 1.0, Gosu::Color::YELLOW)
+      @font.draw("Lives: #{$lives}", 500, 10, 1, 1.0, 1.0, Gosu::Color::YELLOW)
     else
       @font.draw("Lives: 0", 500, 10, 1, 1.0, 1.0, Gosu::Color::YELLOW)
     end
 
-      if $lives > -1
+    if $lives > -1
       $player.draw
-      else
-        @font.draw("Game Over", 150, 390, 1, 1.8, 1.8, Gosu::Color::RED)
-
+    else
+      @font.draw("Game Over", 150, 390, 1, 1.8, 1.8, Gosu::Color::RED)
     end
+    
     if $score == $dotsNum
       @font.draw("You Won!", 150, 390, 1, 1.8, 1.8, Gosu::Color::YELLOW)
     end
