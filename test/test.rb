@@ -27,6 +27,9 @@ class Wall
         @height = h
         @width = w
         @img = $walls[axis]
+        puts 1
+        puts $walls[axis]
+        puts 2
         if axis <21
             @through = false
         else 
