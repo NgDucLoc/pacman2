@@ -39,7 +39,7 @@ class Wall
   end
 
   def hitUp(pacmanX , pacmanY)
-    if  ((pacmanY + 45) == @y) &&
+    if  ((pacmanY + 38) == @y) &&
         ( (pacmanX).between?( (@x-@a) , (@x+@height+@a) )   || 
           (pacmanX+40).between?( (@x-@a), (@x+@height+@a) ) ||
           (pacmanX+20).between?( (@x-@a) , (@x+@height+@a) ) ) &&
@@ -51,7 +51,7 @@ class Wall
   end
 
   def hitDown(pacmanX , pacmanY)
-    if  ((pacmanY +5 ) == @y+@width) &&
+    if  ((pacmanY +2 ) == @y+@width) &&
         ( (pacmanX).between?( (@x-@a) , (@x+@height+@a) )   ||
           (pacmanX+40).between?( (@x-@a), (@x+@height+@a) ) ||
           (pacmanX+20).between?( (@x-@a) , (@x+@height+@a) ) ) &&
@@ -63,7 +63,7 @@ class Wall
   end
 
   def hitLeft(pacmanX , pacmanY)
-    if  ((pacmanX + 45 ) == @x) &&
+    if  ((pacmanX + 38 ) == @x) &&
         ( (pacmanY).between?( (@y-@a) , (@y+@width+@a) )   || 
           (pacmanY+40).between?( (@y-@a), (@y+@width+@a) ) ||
           (pacmanY+20).between?( (@y-@a) , (@y+@width+@a) ) ) &&
@@ -75,7 +75,7 @@ class Wall
   end
 
   def hitRight(pacmanX , pacmanY)
-    if  ((pacmanX + 5) == @x+@height) &&
+    if  ((pacmanX + 2) == @x+@height) &&
         ( (pacmanY).between?( (@y-@a) , (@y+@width+@a) )   || 
           (pacmanY+40).between?( (@y-@a), (@y+@width+@a) ) ||
           (pacmanY+20).between?( (@y-@a) , (@y+@width+@a) ) ) &&

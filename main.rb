@@ -79,7 +79,7 @@ class Window < Gosu::Window
     end
     c = 220
     while c < 540
-      $dots[$dotsNum] = Dot.new(c,710) 
+      $dots[$dotsNum] = Dot.new(c,710)
       $dotsNum += 1
       c += 20
     end
