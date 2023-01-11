@@ -55,7 +55,7 @@ class Ghost
 
     if @direction.eql? "right"
       if @color.eql? "red"
-      @image = Gosu::Image.new(REDRIGHT , options = {} )
+        @image = Gosu::Image.new(REDRIGHT , options = {} )
       elsif @color.eql? "blue"
         @image = Gosu::Image.new(BLUERIGHT , options = {} )
       end

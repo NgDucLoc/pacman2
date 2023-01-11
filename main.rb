@@ -2,7 +2,7 @@ require 'gosu'
 #require 'gosu_tiled'
 require_relative 'wall'
 require_relative 'pacman'
-require_relative 'dot'
+require_relative 'coin'
 require_relative 'ghost'
 
 def media_path(file)
@@ -30,76 +30,46 @@ class Window < Gosu::Window
     @openMusic = Gosu::Sample.new(OPENSONG)
     @openMusic.play(1,1,false)
     #####################   read walls  ##############################
-    $wallsdoc = []
+    $tilesdoc = []
     lines = IO.readlines("inputWall.txt")
+
     lines.each do |i|
         splited = i.split(" ")
-        $wallsdoc.push(splited)
+        $tilesdoc.push(splited)
     end
 
     $walls = []
     t=0
-    for i in 0..$wallsdoc.length-1
-        row =  $wallsdoc[i]
+    for i in 0..$tilesdoc.length-1
+        row =  $tilesdoc[i]
         for j in 0..row.length-1
-            $walls[t] =Wall.new(SIZE*i,SIZE*j, SIZE, SIZE, $wallsdoc[i][j].to_i) 
+            $walls[t] =Wall.new(SIZE*i,SIZE*j, SIZE, SIZE, $tilesdoc[i][j].to_i) 
             t=t+1
         end
     end
-    #####################   create dots   ##############################
-    $dots = Array.new(300)
-    $dotsNum = 0
-    c = 60
-    while c < 700
-      $dots[$dotsNum] = Dot.new(c,110)
-      $dotsNum += 1
-      $dots[$dotsNum] = Dot.new(c,210)
-      $dotsNum += 1
-      $dots[$dotsNum] = Dot.new(c,610)
-      $dotsNum += 1
-      $dots[$dotsNum] = Dot.new(c,810)
-      $dotsNum += 1
-      c += 20
-    end
-
-    c = 180
-    while c < 580
-      $dots[$dotsNum] = Dot.new(c,310)
-      $dotsNum += 1
-      $dots[$dotsNum] = Dot.new(c,510)
-      $dotsNum += 1
-      c += 20
-    end
-
-    c = 60
-    while c < 120
-      $dots[$dotsNum] = Dot.new(c,710)
-      $dotsNum += 1
-      c += 20
-    end
-    c = 220
-    while c < 540
-      $dots[$dotsNum] = Dot.new(c,710)
-      $dotsNum += 1
-      c += 20
-    end
-    c = 640
-    while c < 700
-      $dots[$dotsNum] = Dot.new(c,710)
-      $dotsNum += 1
-      c += 20
+    #####################   create coins   ##############################
+    $coins = []
+    $coinsNum = 0
+    for i in 0..$tilesdoc.length-1
+      row =  $tilesdoc[i]
+      for j in 0..row.length-1
+          if $tilesdoc[i][j].to_i == 17
+            $coins[$coinsNum] = Coin.new(i*35+7, j*35+8)
+            $coinsNum +=1
+          end
+      end
     end
     #####################    create ghosts    ###########################
     $ghosts = Array.new(2)
-    $ghosts[0] = Ghost.new(40,90,"red","x",650,5)
-    $ghosts[1] = Ghost.new(40,790,"blue","x",650,5)
+    $ghosts[0] = Ghost.new(37,30,"red","x",420,5)
+    $ghosts[1] = Ghost.new(520,30,"blue","x",730,5)
 
     $player = Pacman.new(350,390,5)
     @timer = 2000
   end
 
   def update
-    if $score == $dotsNum
+    if $score == $coinsNum
       $won = true
     end
     if $won == false && (Gosu::milliseconds() >4000 && Gosu::milliseconds()-@timer >2000)
@@ -152,15 +122,15 @@ class Window < Gosu::Window
     end
     #draw coin
     c = 0
-    while c < $dotsNum
-      $dots[c].isEated($player.x+25 , $player.y+25)
+    while c < $coinsNum
+      $coins[c].isEated($player.x+20 , $player.y+20)
 
-      $dots[c].draw
+      $coins[c].draw
       c += 1
     end
 
     #draw ghosts
-    if $score != $dotsNum
+    if $score != $coinsNum
       c = 0
       while c < $ghosts.size
         $ghosts[c].draw
@@ -182,7 +152,7 @@ class Window < Gosu::Window
       @font.draw("Game Over", 150, 390, 1, 1.8, 1.8, Gosu::Color::RED)
     end
     
-    if $score == $dotsNum
+    if $score == $coinsNum
       @font.draw("You Won!", 150, 390, 1, 1.8, 1.8, Gosu::Color::YELLOW)
     end
 

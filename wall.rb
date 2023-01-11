@@ -30,7 +30,7 @@ class Wall
           @through = false
       end
       @image = Gosu::Image.new(@img , options = {:rect => [0, 0, @height, @width]} )
-      @a = 1
+      @a = 0
   end
   
   def draw
@@ -40,8 +40,8 @@ class Wall
   def hitUp(pacmanX , pacmanY)
     if (@through == false) 
       if  ((pacmanY + 40) == @y) &&
-         ((pacmanX+9).between?( (@x-@a) , (@x+@height+@a) )   || 
-          (pacmanX+31).between?( (@x-@a), (@x+@height+@a) ) ||
+         ((pacmanX+6).between?( (@x-@a) , (@x+@height+@a) ) || 
+          (pacmanX+34).between?( (@x-@a), (@x+@height+@a) ) ||
           (pacmanX+20).between?( (@x-@a) , (@x+@height+@a) ) )   
         return true
       end
@@ -53,8 +53,8 @@ class Wall
   def hitDown(pacmanX , pacmanY)
     if (@through == false)
       if  ((pacmanY + 5 ) == @y+@width) &&
-        ( (pacmanX +9).between?( (@x-@a) , (@x+@height+@a) )   ||
-          (pacmanX+31).between?( (@x-@a), (@x+@height+@a) ) ||
+        ( (pacmanX +6).between?( (@x-@a) , (@x+@height+@a) )  ||
+          (pacmanX+34).between?( (@x-@a), (@x+@height+@a) )   ||
           (pacmanX+20).between?( (@x-@a) , (@x+@height+@a) ) ) 
         return true
       end
@@ -66,8 +66,8 @@ class Wall
   def hitLeft(pacmanX , pacmanY)
     if (@through == false)
       if  ((pacmanX + 40 ) == @x) &&
-        ( (pacmanY+9).between?( (@y-@a) , (@y+@width+@a) )   || 
-          (pacmanY+31).between?( (@y-@a), (@y+@width+@a) ) ||
+        ( (pacmanY+6).between?( (@y-@a) , (@y+@width+@a) )  || 
+          (pacmanY+34).between?( (@y-@a), (@y+@width+@a) )  ||
           (pacmanY+20).between?( (@y-@a) , (@y+@width+@a) ) ) 
         return true
       end
@@ -79,8 +79,8 @@ class Wall
   def hitRight(pacmanX , pacmanY)
     if (@through == false)
       if  ((pacmanX + 5 ) == @x+@height) &&
-        ( (pacmanY+9).between?( (@y-@a) , (@y+@width+@a) )   || 
-          (pacmanY+31).between?( (@y-@a), (@y+@width+@a) ) ||
+        ( (pacmanY+6).between?( (@y-@a) , (@y+@width+@a) )  || 
+          (pacmanY+34).between?( (@y-@a), (@y+@width+@a) )  ||
           (pacmanY+20).between?( (@y-@a) , (@y+@width+@a) ) )   
         return true
       end
