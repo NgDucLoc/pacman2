@@ -27,6 +27,9 @@ class Wall
         @height = h
         @width = w
         @img = $walls_file[axis]
+
+        puts @x
+        puts @y
         if axis <21
             @through = false
         else 
@@ -57,9 +60,7 @@ class Window < Gosu::Window
         t=0
         for i in 0..$wallsdoc.length-1
             row =  $wallsdoc[i]
-            puts row
             for j in 0..row.length-1
-                puts j
                 $walls[t] =Wall.new(SIZE*i,SIZE*j, SIZE, SIZE, $wallsdoc[i][j].to_i) 
                 t=t+1
             end
@@ -74,4 +75,5 @@ class Window < Gosu::Window
         end
     end
 end
+
 Window.new.show
