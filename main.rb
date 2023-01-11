@@ -139,12 +139,17 @@ class Window < Gosu::Window
     end
 
     #draw Score and live
-    @font.draw("Score: #{$score}", 10, 10, 1, 1.0, 1.0, Gosu::Color::YELLOW)
+    @font.draw("Score: #{$score}", 1000, 50, 1, 1.0, 1.0, Gosu::Color::YELLOW)
     if $lives > -1
-      @font.draw("Lives: #{$lives}", 500, 10, 1, 1.0, 1.0, Gosu::Color::YELLOW)
+      @font.draw("Lives: #{$lives}", 1000, 100, 1, 1.0, 1.0, Gosu::Color::YELLOW)
     else
-      @font.draw("Lives: 0", 500, 10, 1, 1.0, 1.0, Gosu::Color::YELLOW)
+      @font.draw("Lives: 0", 1000, 50, 1, 1.0, 1.0, Gosu::Color::YELLOW)
     end
+
+    @font.draw("Yêu Ngân", 1000, 200, 1, 1.0, 1.0, Gosu::Color::YELLOW)
+    @font.draw("nhất", 1050, 250, 1, 1.0, 1.0, Gosu::Color::YELLOW)
+    @font.draw("trên đời", 1000, 300, 1, 1.0, 1.0, Gosu::Color::YELLOW)
+    
 
     if $lives > -1
       $player.draw
