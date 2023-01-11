@@ -8,7 +8,8 @@ PACMANL = media_path('pacman-left.png')
 PACMANU = media_path('pacman-up.png')
 PACMAND = media_path('pacman-down.png')
 PACMANC = media_path('pacman-closed.png')
-
+SIZEPACMAN = 40
+SIZE = 35          #kich thuoc tile anh
 class Pacman
   attr_reader :x, :y
 
@@ -21,6 +22,8 @@ class Pacman
   @current_direction = "right"
   @stored_direction = "none"
   @updateCounter = 0
+  @impact = 10
+  @k = -3
   end
 
   def draw
@@ -135,61 +138,57 @@ class Pacman
   end
 
   def canMoveDown
-    c = 0
-    for i in 0..$walls.length-1
-      if $walls[i].hitUp(@x,@y)
-        puts 'cham duoi'
-        c += 1
-      end
-    end
-    if c == 0
+    xdown1 = @x  + SIZEPACMAN/2 + @impact
+    xdown2 = @x  + SIZEPACMAN/2 - @impact
+    ydown = @y + SIZEPACMAN - @k
+    i1 = xdown1 / SIZE
+    i2 = xdown2 / SIZE
+    j = ydown / SIZE
+    if (($tilesdoc[j][i1].to_i == 17) && ($tilesdoc[j][i2].to_i == 17))
       return true
-    else
+    else 
       return false
     end
   end
 
   def canMoveUp
-    c = 0
-    for i in 0..$walls.length-1
-      if $walls[i].hitDown(@x,@y)
-        puts 'cham tren'
-        c += 1
-      end
-    end
-    if c == 0
+    xup1 = @x  + SIZEPACMAN/2 + @impact
+    xup2 = @x  + SIZEPACMAN/2 - @impact
+    yup = @y + @k
+    i1 = xup1 / SIZE
+    i2 = xup2 / SIZE
+    j = yup / SIZE
+    if (($tilesdoc[j][i1].to_i == 17) && ($tilesdoc[j][i2].to_i == 17))
       return true
-    else
+    else 
       return false
     end
   end
 
   def canMoveRight
-    c = 0
-    for i in 0..$walls.length-1
-      if $walls[i].hitLeft(@x,@y)
-        puts 'cham phai'
-        c += 1
-      end
-    end
-    if c == 0
+    xright = @x + SIZEPACMAN - @k
+    yright1 = @y + SIZEPACMAN/2 + @impact
+    yright2 = @y + SIZEPACMAN/2 - @impact
+    i = xright / SIZE
+    j1 = yright1 / SIZE
+    j2 = yright2 / SIZE
+    if (($tilesdoc[j1][i].to_i == 17) && ($tilesdoc[j2][i].to_i == 17))
       return true
-    else
+    else 
       return false
     end
   end
 
   def canMoveLeft
-    c = 0
-    for i in 0..$walls.length-1
-      if $walls[i].hitRight(@x,@y)
-        puts ' cham trai'
-        c += 1
-      end
-    end
-    if c == 0
+    xleft = @x +  @k
+    yleft1 = @y + SIZEPACMAN/2 + @impact
+    yleft2 = @y + SIZEPACMAN/2 - @impact
+    i = xleft / SIZE
+    j1 = yleft1 / SIZE
+    j2 = yleft2 / SIZE
+    if (($tilesdoc[j1][i].to_i == 17) && ($tilesdoc[j2][i].to_i == 17))
       return true
-    else
+    else 
       return false
     end
   end

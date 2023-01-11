@@ -22,7 +22,7 @@ class Coin
 
   def isEated(pacmanX , pacmanY)
     @distance = Gosu.distance(@x , @y , pacmanX ,pacmanY)
-    if @distance <= 15 && @eated == false
+    if @distance <= 19 && @eated == false
       $score += 1
       @eated = true
     end

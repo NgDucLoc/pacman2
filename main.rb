@@ -15,12 +15,12 @@ class Window < Gosu::Window
   DEATHSONG= media_path('pacman_death.wav')
   OPENSONG= media_path('pacman_beginning.wav')
   SIZE = 35          #kich thuoc tile anh
-  SIZE_WIDTH= 28     #chieu ngang map
+  SIZE_WIDTH= 37     #chieu ngang map = 28 tile gach + khong gian bieu dien diem
   SIZE_HEIGHT = 31   #chieu doc map
 
 
   def initialize
-    super SIZE_HEIGHT*SIZE , SIZE_WIDTH*SIZE
+    super SIZE_WIDTH*SIZE , SIZE_HEIGHT*SIZE
     self.caption = "Pacman Game"
     @background_image = Gosu::Image.new(BACKGROUND, :tileable => true)
     $lives = 3
@@ -64,7 +64,7 @@ class Window < Gosu::Window
     $ghosts[0] = Ghost.new(37,30,"red","x",420,5)
     $ghosts[1] = Ghost.new(520,30,"blue","x",730,5)
 
-    $player = Pacman.new(350,390,5)
+    $player = Pacman.new(470,380,5)
     @timer = 2000
   end
 
@@ -97,7 +97,7 @@ class Window < Gosu::Window
       c = 0
       while c < $ghosts.size
         if $ghosts[c].hitPacman($player.x,$player.y)
-          $player.changeXY(350,390)
+          $player.changeXY(470,380)
           $lives -= 1
           @timer = Gosu::milliseconds()
           @deathMusic = Gosu::Sample.new(DEATHSONG)
