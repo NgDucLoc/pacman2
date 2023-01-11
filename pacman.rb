@@ -138,7 +138,7 @@ class Pacman
     c = 0
     for i in 0..$walls.length-1
       if $walls[i].hitUp(@x,@y)
-        puts c
+        puts 'cham duoi'
         c += 1
       end
     end
@@ -153,6 +153,7 @@ class Pacman
     c = 0
     for i in 0..$walls.length-1
       if $walls[i].hitDown(@x,@y)
+        puts 'cham tren'
         c += 1
       end
     end
@@ -167,6 +168,7 @@ class Pacman
     c = 0
     for i in 0..$walls.length-1
       if $walls[i].hitLeft(@x,@y)
+        puts 'cham phai'
         c += 1
       end
     end
@@ -181,6 +183,7 @@ class Pacman
     c = 0
     for i in 0..$walls.length-1
       if $walls[i].hitRight(@x,@y)
+        puts ' cham trai'
         c += 1
       end
     end

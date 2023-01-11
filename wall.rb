@@ -31,6 +31,7 @@ class Wall
       end
       puts @through
       @image = Gosu::Image.new(@img , options = {:rect => [0, 0, @height, @width]} )
+      @a = -10
   end
   
   def draw
@@ -38,10 +39,10 @@ class Wall
   end
 
   def hitUp(pacmanX , pacmanY)
-    if  ((pacmanY + 35) == @y) &&
-        ( (pacmanX).between?( (@x-5) , (@x+@height+5) )   || 
-          (pacmanX+50).between?( (@x-5), (@x+@height+5) ) ||
-          (pacmanX+25).between?( (@x-5) , (@x+@height+5) ) ) &&
+    if  ((pacmanY + 45) == @y) &&
+        ( (pacmanX).between?( (@x-@a) , (@x+@height+@a) )   || 
+          (pacmanX+50).between?( (@x-@a), (@x+@height+@a) ) ||
+          (pacmanX+25).between?( (@x-@a) , (@x+@height+@a) ) ) &&
         (@through == false)  
       return true
     else
@@ -50,10 +51,10 @@ class Wall
   end
 
   def hitDown(pacmanX , pacmanY)
-    if  ((pacmanY + 15) == @y+@width) &&
-        ( (pacmanX).between?( (@x-5) , (@x+@height+5) )   ||
-          (pacmanX+50).between?( (@x-5), (@x+@height+5) ) ||
-          (pacmanX+25).between?( (@x-5) , (@x+@height+5) ) ) &&
+    if  ((pacmanY +5 ) == @y+@width) &&
+        ( (pacmanX).between?( (@x-@a) , (@x+@height+@a) )   ||
+          (pacmanX+50).between?( (@x-@a), (@x+@height+@a) ) ||
+          (pacmanX+25).between?( (@x-@a) , (@x+@height+@a) ) ) &&
         (@through == false)
       return true
     else
@@ -62,10 +63,10 @@ class Wall
   end
 
   def hitLeft(pacmanX , pacmanY)
-    if  ((pacmanX + 35 ) == @x) &&
-        ( (pacmanY).between?( (@y-5) , (@y+@width+5) )   || 
-          (pacmanY+50).between?( (@y-5), (@y+@width+5) ) ||
-          (pacmanY+25).between?( (@y-5) , (@y+@width+5) ) ) &&
+    if  ((pacmanX + 45 ) == @x) &&
+        ( (pacmanY).between?( (@y-@a) , (@y+@width+@a) )   || 
+          (pacmanY+50).between?( (@y-@a), (@y+@width+@a) ) ||
+          (pacmanY+25).between?( (@y-@a) , (@y+@width+@a) ) ) &&
       (@through == false)
       return true
     else
@@ -74,10 +75,10 @@ class Wall
   end
 
   def hitRight(pacmanX , pacmanY)
-    if  ((pacmanX + 50) == @x+@height) &&
-        ( (pacmanY).between?( (@y-5) , (@y+@width+5) )   || 
-          (pacmanY+50).between?( (@y-5), (@y+@width+5) ) ||
-          (pacmanY+25).between?( (@y-5) , (@y+@width+5) ) ) &&
+    if  ((pacmanX + 5) == @x+@height) &&
+        ( (pacmanY).between?( (@y-@a) , (@y+@width+@a) )   || 
+          (pacmanY+50).between?( (@y-@a), (@y+@width+@a) ) ||
+          (pacmanY+25).between?( (@y-@a) , (@y+@width+@a) ) ) &&
         (@through == false)
       return true
     else
