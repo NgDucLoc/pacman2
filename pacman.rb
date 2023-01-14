@@ -32,7 +32,7 @@ class Pacman
 
   #chuyen huong di chuyen
   def change_Direction(direction)
-    @randDirection 
+    @randDirection = rand
     if (direction == "right")
       if canMoveRight
       @current_direction = "right"

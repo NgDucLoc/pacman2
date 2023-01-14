@@ -240,7 +240,7 @@ class Ghost
   def hitPacman(pacmanX,pacmanY)
     @distance1 = Gosu.distance(@x , @y , pacmanX ,pacmanY)
     @distance2 = Gosu.distance(@x+50 , @y+50 , pacmanX ,pacmanY)
-    if @distance1 <= 10 || @distance2 <= 10
+    if @distance1 <= 20 || @distance2 <= 20
       return true
     else
       return false
