@@ -60,10 +60,10 @@ class Window < Gosu::Window
       end
     end
     #####################    create ghosts    ###########################
-    $ghosts = Array.new(2)
-    $ghosts[0] = Ghost.new(37,30,"red","x",420,5)
-    $ghosts[1] = Ghost.new(520,30,"blue","x",730,5)
-
+    $ghosts = Array.new(3)
+    $ghosts[0] = Ghost.new(37,30,"red",5)
+    $ghosts[1] = Ghost.new(520,30,"blue",5)
+    $ghosts[2] = Ghost.new(500, 585, "blue", 5)
     $player = Pacman.new(470,380,5)
     @timer = 2000
   end
@@ -147,7 +147,7 @@ class Window < Gosu::Window
     end
 
 
-    if $lives > -1
+    if $lives > -1 
       $player.draw
     else
       @font.draw("Game Over", 150, 390, 1, 1.8, 1.8, Gosu::Color::RED)
