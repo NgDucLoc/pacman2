@@ -23,7 +23,7 @@ class Pacman
   @stored_direction = "none"
   @updateCounter = 0
   @impact = 10
-  @k = -3
+  @k = -2
   end
 
   def draw

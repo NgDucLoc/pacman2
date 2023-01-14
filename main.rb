@@ -146,10 +146,6 @@ class Window < Gosu::Window
       @font.draw("Lives: 0", 1000, 50, 1, 1.0, 1.0, Gosu::Color::YELLOW)
     end
 
-    @font.draw("Yêu Ngân", 1000, 200, 1, 1.0, 1.0, Gosu::Color::YELLOW)
-    @font.draw("nhất", 1050, 250, 1, 1.0, 1.0, Gosu::Color::YELLOW)
-    @font.draw("trên đời", 1000, 300, 1, 1.0, 1.0, Gosu::Color::YELLOW)
-    
 
     if $lives > -1
       $player.draw
