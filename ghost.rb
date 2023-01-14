@@ -41,13 +41,14 @@ class Ghost
 
   def update
      # chon huong di tiep theo
+    @randDirection = rand(0..1)
     if @direction.eql? "right"
       if canMoveRight
         @x = @x + @speed
       else
-        if canMoveDown
+        if canMoveDown and (@randDirection == 0)
           @direction = "down"
-        elsif canMoveUp 
+        elsif canMoveUp and (@randDirection == 1)
           @direction = "up" 
         else 
           @direction = "left"
@@ -58,9 +59,9 @@ class Ghost
       if canMoveLeft
         @x = @x - @speed
       else
-        if canMoveDown
+        if canMoveDown and (@randDirection == 0)
           @direction = "down"
-        elsif canMoveUp 
+        elsif canMoveUp and (@randDirection == 1)
           @direction = "up" 
         else 
           @direction = "right"
@@ -71,9 +72,9 @@ class Ghost
       if canMoveUp
         @y = @y - @speed
       else
-        if canMoveRight
+        if canMoveRight and (@randDirection == 0)
           @direction = "right"
-        elsif canMoveLeft
+        elsif canMoveLeft and (@randDirection == 1)
           @direction = "left"
         else
           @direction = "down"
@@ -84,9 +85,9 @@ class Ghost
       if canMoveDown
         @y = @y + @speed
       else
-        if canMoveRight
+        if canMoveRight and (@randDirection == 0)
           @direction = "right"
-        elsif canMoveLeft
+        elsif canMoveLeft and (@randDirection == 1)
           @direction = "left"
         else
           @direction = "up"
