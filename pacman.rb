@@ -17,9 +17,9 @@ class Pacman
   @x = x
   @y = y
   @speed = speed
-  @image = Gosu::Image.new(PACMANR , options = {} )
+  @image = Gosu::Image.new(PACMAND , options = {} )
 
-  @current_direction = "right"
+  @current_direction = "down"
   @stored_direction = "none"
   @updateCounter = 0
   @impact = 10

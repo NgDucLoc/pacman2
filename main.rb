@@ -1,4 +1,5 @@
 require 'gosu'
+require 'ruby2d'
 #require 'gosu_tiled'
 require_relative 'wall'
 require_relative 'pacman'
@@ -9,8 +10,12 @@ def media_path(file)
   File.join(File.dirname(__FILE__), 'Images', file)
 end
 
-class Window < Gosu::Window
-  BACKGROUND = media_path('maze.png')
+
+
+class PlayState < Gosu::Window
+  BACKGROUND = media_path('background.png')
+  ENDLOSE = media_path("backgroundPacman.png")
+  ENDWIN = media_path("wingame.png")
   FONT = media_path('PressStart2Play.ttf')
   DEATHSONG= media_path('pacman_death.wav')
   OPENSONG= media_path('pacman_beginning.wav')
@@ -23,6 +28,8 @@ class Window < Gosu::Window
     super SIZE_WIDTH*SIZE , SIZE_HEIGHT*SIZE
     self.caption = "Pacman Game"
     @background_image = Gosu::Image.new(BACKGROUND, :tileable => true)
+    @endlose = Gosu::Image.new(ENDLOSE , :tileable => true )
+    @endwin = Gosu::Image.new(ENDWIN , :tileable => true )
     $lives = 3
     $score = 0
     $won = false
@@ -68,6 +75,15 @@ class Window < Gosu::Window
     @timer = 2000
   end
 
+
+  #close game or start newgame
+  def button_down(id)
+    close if id == Gosu::KbEscape
+
+    initialize if id == Gosu::KB_N
+  end
+
+
   def update
     if $score == $coinsNum
       $won = true
@@ -103,7 +119,7 @@ class Window < Gosu::Window
           @deathMusic = Gosu::Sample.new(DEATHSONG)
           @deathMusic.play(1,1,false)
           if $lives == -1
-            @timer = 2000
+            @timer== 2000
           end
         end
         c += 1
@@ -113,53 +129,58 @@ class Window < Gosu::Window
   end
 
   def draw
-    @background_image.draw(0, 0, 0)
-    #draw wall
-    c = 0
-    while c < $walls.size
-      $walls[c].draw
-      c += 1
-    end
-    #draw coin
-    c = 0
-    while c < $coinsNum
-      $coins[c].isEated($player.x+20 , $player.y+20)
-
-      $coins[c].draw
-      c += 1
-    end
-
-    #draw ghosts
-    if $score != $coinsNum
+    if($lives != -1 && $won== false)
+      @background_image.draw(0, 0, 0)
+      #draw wall
       c = 0
-      while c < $ghosts.size
-        $ghosts[c].draw
+      while c < $walls.size
+        $walls[c].draw
         c += 1
       end
-    end
+      #draw coin
+      c = 0
+      while c < $coinsNum
+        $coins[c].isEated($player.x+20 , $player.y+20)
 
-    #draw Score and live
-    @font.draw("Score: #{$score}", 1000, 50, 1, 1.0, 1.0, Gosu::Color::YELLOW)
-    if $lives > -1
-      @font.draw("Lives: #{$lives}", 1000, 100, 1, 1.0, 1.0, Gosu::Color::YELLOW)
-    else
-      @font.draw("Lives: 0", 1000, 50, 1, 1.0, 1.0, Gosu::Color::YELLOW)
-    end
+        $coins[c].draw
+        c += 1
+      end
 
+      #draw ghosts
+      if $score != $coinsNum
+        c = 0
+        while c < $ghosts.size
+          $ghosts[c].draw
+          c += 1
+        end
+      end
 
-    if $lives > -1 
+      #draw Score and live
+      @font.draw("Score: #{$score}", 1000, 50, 1, 1.0, 1.0, Gosu::Color::YELLOW)
+      if $lives > -1
+        @font.draw("Lives: #{$lives}", 1000, 100, 1, 1.0, 1.0, Gosu::Color::YELLOW)
+      else
+        @font.draw("Lives: 0", 1000, 50, 1, 1.0, 1.0, Gosu::Color::YELLOW)
+      end
+
       $player.draw
-    else
+    elsif($lives== -1 and $won == false)
+      @endlose.draw(0, 0, 0)
       @font.draw("Game Over", 150, 390, 1, 1.8, 1.8, Gosu::Color::RED)
+      @font.draw("An phim N de bat dau van moi",170, 450, 1, 1, 1, Gosu::Color::YELLOW)
     end
     
-    if $score == $coinsNum
+    if $score != $coinsNum
+      $won = true
+      @endwin.draw(0, 0, 0)
       @font.draw("You Won!", 150, 390, 1, 1.8, 1.8, Gosu::Color::YELLOW)
+      @font.draw("An phim N de bat dau van moi",170, 450, 1, 1, 1, Gosu::Color::RED)
     end
-
   end
-
 
 end
 
-Window.new.show
+
+PlayState.new.show
+
+
