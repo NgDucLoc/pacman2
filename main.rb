@@ -70,7 +70,7 @@ class PlayState < Gosu::Window
     $ghosts = Array.new(3)
     $ghosts[0] = Ghost.new(37,30,"red",5)
     $ghosts[1] = Ghost.new(520,30,"blue",5)
-    $ghosts[2] = Ghost.new(500, 585, "blue", 5)
+    $ghosts[2] = Ghost.new(500, 1000, "blue", 5)
     $player = Pacman.new(470,380,5)
     @timer = 2000
   end
@@ -131,6 +131,9 @@ class PlayState < Gosu::Window
   def draw
     if($lives != -1 && $won== false)
       @background_image.draw(0, 0, 0)
+      @font.draw("Restart:N",1000, 450, 1, 1, 1, Gosu::Color::RED)
+      
+      
       #draw wall
       c = 0
       while c < $walls.size
@@ -141,7 +144,6 @@ class PlayState < Gosu::Window
       c = 0
       while c < $coinsNum
         $coins[c].isEated($player.x+20 , $player.y+20)
-
         $coins[c].draw
         c += 1
       end
@@ -170,7 +172,7 @@ class PlayState < Gosu::Window
       @font.draw("An phim N de bat dau van moi",170, 450, 1, 1, 1, Gosu::Color::YELLOW)
     end
     
-    if $score != $coinsNum
+    if $score == $coinsNum
       $won = true
       @endwin.draw(0, 0, 0)
       @font.draw("You Won!", 150, 390, 1, 1.8, 1.8, Gosu::Color::YELLOW)
