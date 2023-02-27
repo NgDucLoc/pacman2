@@ -1,16 +1,17 @@
 require 'gosu'
 
 def media_path(file)
-  File.join(File.dirname(__FILE__), 'Images', file)
+  File.join(File.dirname(__FILE__), 'Resources', file)
 end
 
-DOT = media_path('coin.png')
-class Coin
+COIN = media_path('coin.png')
 
+
+class Coin
   def initialize(x, y)
     @x = y
     @y = x
-    @image = Gosu::Image.new(DOT , options = {} )
+    @image = Gosu::Image.new(COIN , options = {} )
     @eated = false
   end
 
@@ -27,5 +28,4 @@ class Coin
       @eated = true
     end
   end
-
-  end
+end

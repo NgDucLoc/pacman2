@@ -7,7 +7,7 @@ require_relative 'coin'
 require_relative 'ghost'
 
 def media_path(file)
-  File.join(File.dirname(__FILE__), 'Images', file)
+  File.join(File.dirname(__FILE__), 'Resources', file)
 end
 
 
@@ -30,7 +30,7 @@ class PlayState < Gosu::Window
     @background_image = Gosu::Image.new(BACKGROUND, :tileable => true)
     @endlose = Gosu::Image.new(ENDLOSE , :tileable => true )
     @endwin = Gosu::Image.new(ENDWIN , :tileable => true )
-    $lives = 3
+    $lives = -1
     $score = 0
     $won = false
     @font = Gosu::Font.new(self ,FONT , 30)

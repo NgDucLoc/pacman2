@@ -1,7 +1,7 @@
 require 'gosu'
 
 def media_path(file)
-  File.join(File.dirname(__FILE__), 'Images', file)
+  File.join(File.dirname(__FILE__), 'Resources', file)
 end
 
 #lay anh tuong
