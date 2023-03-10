@@ -29,3 +29,4 @@ class Coin
     end
   end
 end
+

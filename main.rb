@@ -30,7 +30,7 @@ class PlayState < Gosu::Window
     @background_image = Gosu::Image.new(BACKGROUND, :tileable => true)
     @endlose = Gosu::Image.new(ENDLOSE , :tileable => true )
     @endwin = Gosu::Image.new(ENDWIN , :tileable => true )
-    $lives = -1
+    $lives = 3
     $score = 0
     $won = false
     @font = Gosu::Font.new(self ,FONT , 30)
