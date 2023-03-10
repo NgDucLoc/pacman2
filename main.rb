@@ -148,7 +148,7 @@ class PlayState < Gosu::Window
         $coins[c].draw
         c += 1
       end
-    end
+    
       #draw ghosts
       if $score != $coinsNum
         c = 0
