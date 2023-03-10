@@ -1,16 +1,17 @@
 require 'gosu'
 
 def media_path(file)
-  File.join(File.dirname(__FILE__), 'Images', file)
+  File.join(File.dirname(__FILE__), 'Resources', file)
 end
 
-DOT = media_path('dot.png')
-class Dot
+COIN = media_path('coin.png')
 
+
+class Coin
   def initialize(x, y)
-    @x = x
-    @y = y
-    @image = Gosu::Image.new(DOT , options = {} )
+    @x = y
+    @y = x
+    @image = Gosu::Image.new(COIN , options = {} )
     @eated = false
   end
 
@@ -22,10 +23,9 @@ class Dot
 
   def isEated(pacmanX , pacmanY)
     @distance = Gosu.distance(@x , @y , pacmanX ,pacmanY)
-    if @distance <= 10 && @eated == false
+    if @distance <= 19 && @eated == false
       $score += 1
       @eated = true
     end
   end
-
-  end
+end
